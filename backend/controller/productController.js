@@ -17,7 +17,7 @@ exports.createProduct = catchAsyncError(async (req, res, next) => {
 // >> Get All Products
 exports.getAllProducts = catchAsyncError(async (req, res) => {
     const productCount = await Product.countDocuments();
-    const resultPerPage = 5;
+    const resultPerPage = 8;
     const apiFeature = new ApiFeatures(Product.find(), req.query).search().filter().pagination(resultPerPage)
     const products = await apiFeature.query;
     res.status(200).json({
@@ -133,9 +133,9 @@ exports.deleteReview = catchAsyncError(async (req, res, next) => {
     reviews.forEach((rev) => {
         avg += rev.rating;
     })
-    if (reviews.length === 0){
+    if (reviews.length === 0) {
         ratings = 0;
-    }else{
+    } else {
         const ratings = avg / reviews.length;
 
     }

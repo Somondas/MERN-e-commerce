@@ -6,12 +6,12 @@ import {
 } from "../constants/productConstants";
 
 
-export const productReducer = (state = { pruducts: [] }, action) => {
+export const productReducer = (state = { products: [] }, action) => {
     switch (action.type) {
         case ALL_PRODUCT_REQUEST:
             return {
                 loading: true,
-                products: []
+                products: [],
             }
         case ALL_PRODUCT_SUCCESS:
             return {

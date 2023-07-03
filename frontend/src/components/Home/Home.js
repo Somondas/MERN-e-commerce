@@ -2,6 +2,9 @@ import React from 'react';
 import "./Home.css";
 import Product from "./Product.js";
 import MetaData from '../layouts/MetaData';
+import { getProduct } from "../../actions/productAction";
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 const product = {
     name: "Blue TShirt",
@@ -11,6 +14,14 @@ const product = {
 
 }
 const Home = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getProduct());
+
+    }, [dispatch])
+
+
     return (
         <>
             <MetaData title="Ecommerce" />
