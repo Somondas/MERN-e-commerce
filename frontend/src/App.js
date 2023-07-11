@@ -20,7 +20,7 @@ function App() {
       <Header />
       <Routes>
         <Route extact path='/' element={<Home />} />
-        <Route extact path='/product/:id' element={<ProductDetails />} />
+        <Route path='/product/:id' element={<ProductDetails />} />
 
       </Routes>
       <Footer />
