@@ -21,7 +21,6 @@ function App() {
       <Routes>
         <Route extact path='/' element={<Home />} />
         <Route path='/product/:id' element={<ProductDetails />} />
-
       </Routes>
       <Footer />
     </Router>

@@ -10,32 +10,40 @@ const ProductDetails = () => {
     const params = useParams();
     const dispatch = useDispatch()
 
-    const { product, loading, error } = useSelector(
+    const { loading, error, product } = useSelector(
         state => state.productDetails
     )
-    console.log(params.id);
+    // console.log(params.id);
     // console.log(match.params.id);
     useEffect(() => {
         dispatch(getProductDetails(params.id));
 
-    }, [dispatch])
 
+    }, [dispatch, params.id, error])
+    console.log(product);
     return (
         <>
             <div className="ProductDetails">
                 <Carousel>
-                    {product.image &&
-                        product.image.map((item, key) => (
+                    {
+                        product.image &&
+                        product.image.map((item, i) => (
                             <img
                                 className='CarouselImage'
-                                key={item.url}
                                 src={item.url}
-                                alt={`${key} Slide`}
+                                key={i}
+                                alt={item.name}
                             />
                         ))
-
                     }
                 </Carousel>
+            </div>
+            <div>
+                <div className="detailsBlock-1">
+                    <h2>{product.name}</h2>
+                    <p>Product # {product._id}</p>
+                </div>
+
             </div>
         </>
     )
