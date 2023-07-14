@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import "./Home.css";
-import Product from "./Product.js";
+import ProductCard from "./ProductCard.js";
 import MetaData from '../layouts/MetaData';
-import { getProduct } from "../../actions/productAction";
+import { clearError, getProduct } from "../../actions/productAction";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import Loader from '../layouts/Loader/Loader';
@@ -20,7 +20,8 @@ const Home = () => {
     const { loading, error, products, productsCount } = useSelector((state) => state.products);
     useEffect(() => {
         if (error) {
-            return alert.error(error);
+            alert.error(error);
+            dispatch(clearError());
         }
         dispatch(getProduct());
 
@@ -45,7 +46,7 @@ const Home = () => {
                     <h2 className='homeHeading'>Featured Products</h2>
                     <div className="container" id='container'>
                         {products && products.map((product, key) => (
-                            <Product product={product} key={key} />
+                            <ProductCard product={product} key={key} />
                         ))}
                     </div>
                 </Fragment>
