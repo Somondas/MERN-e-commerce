@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import "./Search.css";
 import { useNavigate } from "react-router-dom";
 
+
+// ! Search Funtionality not working, route not made yet......
 function Search() {
     const navigate = useNavigate();
     const [keyword, setKeyword] = useState("")
     const searchSubmitHandler = (e) => {
         e.preventDefault()
         if (keyword.trim()) {
-            navigate(`/porducts/${keyword}`)
+            navigate(`/products/${keyword}`)
         } else {
             navigate("/products")
         }

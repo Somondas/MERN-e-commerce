@@ -9,13 +9,13 @@ import { useAlert } from "react-alert"
 import ProductCard from '../Home/ProductCard';
 
 function Products() {
-
+    const params = useParams();
     const dispatch = useDispatch();
     const { products, loading, error, productsCount } = useSelector(state => state.products);
-
+    const keyword = params.keyword;
     useEffect(() => {
-        dispatch(getProduct())
-    }, [dispatch])
+        dispatch(getProduct(keyword))
+    }, [dispatch, keyword])
 
     return (
         <>
