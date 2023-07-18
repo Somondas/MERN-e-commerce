@@ -1,3 +1,4 @@
+const { query } = require("express");
 const catchAsyncError = require("../middleware/catchAsyncError");
 const Product = require("../models/productModels");
 const ApiFeatures = require("../utils/apifeatures");
@@ -25,6 +26,7 @@ exports.getAllProducts = catchAsyncError(async (req, res, next) => {
         success: true,
         products,
         productsCount,
+        resultPerPage
     })
 })
 
@@ -39,6 +41,25 @@ exports.getProductDetails = catchAsyncError(async (req, res, next) => {
         success: true,
         product
     })
+})
+// >> Get Product with keywords
+exports.getProductDetailsByKeyword = catchAsyncError(async (req, res, next) => {
+    const keyword = req.params.keyword;
+    // console.log(Product.find());
+    const products = await Product.find({
+        $or: [
+            { name: { $regex: keyword, $options: "i" } }
+        ]
+    })
+    if (!products) {
+        return next(new ErrorHandler("Product Not Found", 404))
+
+    }
+    res.status(200).json({
+        success: true,
+        products
+    })
+
 })
 // >> Update a Product --Admin
 exports.updateProduct = catchAsyncError(async (req, res, next) => {
