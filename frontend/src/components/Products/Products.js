@@ -20,17 +20,17 @@ const Products = ({ match }) => {
 
   const { products, loading, error, productsCount, resultPerPage } =
     useSelector((state) => state.products);
-  const keyword = match.params.keyword;
+  // const keyword = match.params.keyword;
 
   const setCurrentPageNo = (e) => {
     setCurrentPage(e);
   };
   useEffect(() => {
-    dispatch(getProduct(keyword));
-  }, [dispatch, keyword]);
+    dispatch(getProduct());
+  }, [dispatch]);
 
   return (
-    <>
+    <Fragment>
       {loading ? (
         <Loader />
       ) : (
@@ -42,6 +42,7 @@ const Products = ({ match }) => {
                 <ProductCard key={product._id} product={product} />
               ))}
           </div>
+          {/* 
 
           <div className="paginationBox">
             <Pagination
@@ -58,10 +59,10 @@ const Products = ({ match }) => {
               activeClass="pageItemActive"
               activeLinkClass="pageLinkActive"
             />
-          </div>
+          </div> */}
         </Fragment>
       )}
-    </>
+    </Fragment>
   );
 };
 
