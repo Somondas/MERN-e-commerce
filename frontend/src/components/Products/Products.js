@@ -13,21 +13,22 @@ import { useAlert } from "react-alert";
 import ProductCard from "../Home/ProductCard";
 import Pagination from "react-js-pagination";
 
-const Products = ({ match }) => {
-  const params = useParams();
+const Products = () => {
+  const { keyword } = useParams();
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
 
   const { products, loading, error, productsCount, resultPerPage } =
     useSelector((state) => state.products);
   // const keyword = match.params.keyword;
+  // console.log(keyword);
 
   const setCurrentPageNo = (e) => {
     setCurrentPage(e);
   };
   useEffect(() => {
-    dispatch(getProduct());
-  }, [dispatch]);
+    dispatch(getProduct(keyword));
+  }, [dispatch, keyword]);
 
   return (
     <Fragment>
@@ -42,8 +43,6 @@ const Products = ({ match }) => {
                 <ProductCard key={product._id} product={product} />
               ))}
           </div>
-          {/* 
-
           <div className="paginationBox">
             <Pagination
               activePage={currentPage}
@@ -59,7 +58,10 @@ const Products = ({ match }) => {
               activeClass="pageItemActive"
               activeLinkClass="pageLinkActive"
             />
-          </div> */}
+          </div>
+          {/* 
+
+          */}
         </Fragment>
       )}
     </Fragment>
