@@ -12,6 +12,8 @@ import Loader from "../layouts/Loader/Loader";
 import { useAlert } from "react-alert";
 import ProductCard from "../Home/ProductCard";
 import Pagination from "react-js-pagination";
+import Slider from "@material-ui/core/Slider";
+import Typography from "@material-ui/core/Typography";
 
 const Products = () => {
   const { keyword } = useParams();
@@ -21,14 +23,14 @@ const Products = () => {
   const { products, loading, error, productsCount, resultPerPage } =
     useSelector((state) => state.products);
   // const keyword = match.params.keyword;
-  // console.log(keyword);
+  console.log(keyword);
 
   const setCurrentPageNo = (e) => {
     setCurrentPage(e);
   };
   useEffect(() => {
-    dispatch(getProduct(keyword));
-  }, [dispatch, keyword]);
+    dispatch(getProduct(keyword, currentPage));
+  }, [dispatch, keyword, currentPage]);
 
   return (
     <Fragment>
@@ -43,25 +45,37 @@ const Products = () => {
                 <ProductCard key={product._id} product={product} />
               ))}
           </div>
-          <div className="paginationBox">
-            <Pagination
-              activePage={currentPage}
-              itemsCountPerPage={resultPerPage}
-              totalItemsCount={productsCount}
-              onChange={setCurrentPageNo}
-              nextPageText="Next"
-              prevPageText="Prev"
-              firstPageText="1st"
-              lastPageText="Last"
-              itemClass="page-item"
-              linkClass="page-link"
-              activeClass="pageItemActive"
-              activeLinkClass="pageLinkActive"
+          <div className="filterBox">
+            <Typography variant="h1" color="initial">
+              Price
+            </Typography>
+            <Slider
+              value={price}
+              onChange={priceHandler}
+              valueLabelDisplay="auto"
+              aria-labelleby="range-slider"
+              min={0}
+              max={100}
             />
           </div>
-          {/* 
-
-          */}
+          {resultPerPage < productsCount && (
+            <div className="paginationBox">
+              <Pagination
+                activePage={currentPage}
+                itemsCountPerPage={resultPerPage}
+                totalItemsCount={productsCount}
+                onChange={setCurrentPageNo}
+                nextPageText="Next"
+                prevPageText="Prev"
+                firstPageText="1st"
+                lastPageText="Last"
+                itemClass="page-item"
+                linkClass="page-link"
+                activeClass="pageItemActive"
+                activeLinkClass="pageLinkActive"
+              />
+            </div>
+          )}
         </Fragment>
       )}
     </Fragment>
